@@ -1,11 +1,13 @@
 import Navbar from "@/components/navbar";
+import Sidebar from "@/components/sidebar";
+import Image from "next/image";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full relative">
       <div className="hidden h-full md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 z-[80] bg-gray-900">
         <div>
-          <p className="text-white text-xl">Sidebar</p>
+          <Sidebar />
         </div>
       </div>
       <main className="md:pl-72">
