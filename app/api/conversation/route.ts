@@ -13,21 +13,13 @@ export async function POST(req: Request) {
     const { messages } = body;
 
     if (!userId) {
-      return new NextResponse("Unauthorized", {
-        status: 401,
-      });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
-
     if (!openai.apiKey) {
-      return new NextResponse("OpenAI API Key not configured", {
-        status: 500,
-      });
+      return new NextResponse("OpenAI API Key not configured", { status: 500 });
     }
-
     if (!messages) {
-      return new NextResponse("No messages provided", {
-        status: 400,
-      });
+      return new NextResponse("Messages are required", { status: 400 });
     }
 
     const response = await openai.chat.completions.create({
@@ -37,6 +29,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(response.choices[0].message);
   } catch (error) {
-    console.log("[CONVERSATION ERROR]: ", error);
+    console.log("[CONVERSATION_ERROR]", error);
+    return new NextResponse("Internal error", { status: 500 });
   }
 }
