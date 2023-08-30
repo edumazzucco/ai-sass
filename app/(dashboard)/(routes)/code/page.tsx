@@ -14,6 +14,7 @@ import { formSchema } from "./constants";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 import OpenAI from "openai";
 import Empty from "@/components/empty";
@@ -121,7 +122,24 @@ const CodePage = () => {
                 )}
               >
                 {msg.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{msg.content}</p>
+                <ReactMarkdown
+                  className="text-sm overflow-hidden leading-relaxed"
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className="overflow-auto w-full my-4 bg-black p-4 rounded-lg text-green-500">
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code
+                        className="bg-black/70 rounded-md text-neutral-200 p-1"
+                        {...props}
+                      />
+                    ),
+                  }}
+                >
+                  {msg.content || "No content"}
+                </ReactMarkdown>
               </div>
             ))}
           </div>
