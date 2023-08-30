@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare } from "lucide-react";
+import { Code, MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 
-const ConversationPage = () => {
+const CodePage = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<
     OpenAI.Chat.Completions.CreateChatCompletionRequestMessage[]
@@ -46,7 +46,7 @@ const ConversationPage = () => {
         };
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/code", {
         messages: newMessages,
       });
 
@@ -63,11 +63,11 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="Get acess to natural conversation with powerful knowledge of the IA."
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Generation"
+        description="IA powered code generation tool. Describe it, get it, enjoy!"
+        icon={Code}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -83,7 +83,7 @@ const ConversationPage = () => {
                     <FormControl className="m-0 p-0">
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        placeholder="What is the result of the partial derivative in (1,2)?"
+                        placeholder="Contact form CRUD w/ react-hook-form, Next.js and Tailwind CSS."
                         disabled={isLoading}
                         {...field}
                       />
@@ -131,4 +131,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default CodePage;
