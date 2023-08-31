@@ -49,6 +49,7 @@ const ImagePage = () => {
 
       const urls = response.data.map((image: { url: string }) => image.url);
       setImages(urls);
+      form.reset();
     } catch (error) {
       console.error(error);
     } finally {
