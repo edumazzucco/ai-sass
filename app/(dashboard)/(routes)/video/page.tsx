@@ -1,6 +1,6 @@
 "use client";
 
-import { Music } from "lucide-react";
+import { VideoIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -18,9 +18,9 @@ import { formSchema } from "./constants";
 import Empty from "@/components/empty";
 import { Loader } from "@/components/loader";
 
-const MusicPage = () => {
+const VideoPage = () => {
   const router = useRouter();
-  const [music, setMusic] = useState<string | null>();
+  const [video, setVideo] = useState<string | null>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,11 +33,11 @@ const MusicPage = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      setMusic(null);
+      setVideo(null);
 
-      const response = await axios.post("/api/music", data);
+      const response = await axios.post("/api/video", data);
 
-      setMusic(response.data.audio);
+      setVideo(response.data[0]);
       form.reset();
     } catch (error) {
       console.error(error);
@@ -49,11 +49,11 @@ const MusicPage = () => {
   return (
     <div>
       <Heading
-        title="Music Generation"
-        description="Describe what you want to hear and get a music just for you."
-        icon={Music}
-        iconColor="text-emerald-500"
-        bgColor="bg-emerald-500/10"
+        title="Video Generation"
+        description="Describe what you want to watch and the AI will generate your video like magic."
+        icon={VideoIcon}
+        iconColor="text-orange-700"
+        bgColor="bg-orange-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -69,7 +69,7 @@ const MusicPage = () => {
                     <FormControl className="m-0 p-0">
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        placeholder="A piano composition with joyful melody and a violin solo."
+                        placeholder="Italian mediterranean coast beach full of tourists."
                         disabled={isLoading}
                         {...field}
                       />
@@ -92,10 +92,13 @@ const MusicPage = () => {
               <Loader text="Music is being generated, it can take a while..." />
             </div>
           )}
-          {!music && !isLoading && <Empty label="No music generated yet." />}
-          {music && (
-            <audio controls className="w-full mt-8">
-              <source src={music} />
+          {!video && !isLoading && <Empty label="No video generated yet." />}
+          {video && (
+            <audio
+              controls
+              className="w-full aspect-video mt-8 rounded-lg border bg-black"
+            >
+              <source src={video} />
             </audio>
           )}
         </div>
@@ -104,4 +107,4 @@ const MusicPage = () => {
   );
 };
 
-export default MusicPage;
+export default VideoPage;
