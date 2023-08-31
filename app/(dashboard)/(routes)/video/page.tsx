@@ -89,17 +89,17 @@ const VideoPage = () => {
         <div className="space-y-4 mt-4">
           {isLoading && (
             <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-              <Loader text="Music is being generated, it can take a while..." />
+              <Loader text="Video generation in progress. This may take a while..." />
             </div>
           )}
           {!video && !isLoading && <Empty label="No video generated yet." />}
           {video && (
-            <audio
+            <video
               controls
               className="w-full aspect-video mt-8 rounded-lg border bg-black"
             >
               <source src={video} />
-            </audio>
+            </video>
           )}
         </div>
       </div>
