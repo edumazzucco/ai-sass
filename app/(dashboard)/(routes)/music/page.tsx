@@ -90,11 +90,15 @@ const MusicPage = () => {
         <div className="space-y-4 mt-4">
           {isLoading && (
             <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-              <Loader />
+              <Loader text="Music is being generated, it can take a while..." />
             </div>
           )}
-          {music && !isLoading && <Empty label="No music generated yet." />}
-          <div className="">Music placeholder</div>
+          {!music && !isLoading && <Empty label="No music generated yet." />}
+          {music && (
+            <audio controls className="w-full mt-8">
+              <source src={music} />
+            </audio>
+          )}
         </div>
       </div>
     </div>
