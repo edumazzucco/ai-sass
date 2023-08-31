@@ -110,9 +110,9 @@ const ConversationPage = () => {
             <Empty label="No messages found." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((msg) => (
+            {messages.map((msg, i) => (
               <div
-                key={msg.content}
+                key={msg?.content ? msg.content + i : "No message" + i}
                 className={cn(
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
                   msg.role === "user"
