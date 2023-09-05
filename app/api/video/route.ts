@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(response);
   } catch (error) {
-    console.log("[VIDEO_ERROR]", error);
+    console.error("[VIDEO_ERROR]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
